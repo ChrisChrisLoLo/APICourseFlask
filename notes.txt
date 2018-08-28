@@ -1,0 +1,1 @@
+Requires everything in the pipfile as well as Postgres running with "test_db" and "flask_api" Databases
