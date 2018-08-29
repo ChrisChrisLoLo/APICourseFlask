@@ -3,7 +3,7 @@ from app import db
 class Faculty(db.Model):
     """Class that represents the Faculty table."""
 
-    __tablename__ = 'faculties'
+    __tablename__ = 'faculty'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255),unique=True,nullable=False)
@@ -14,7 +14,7 @@ class Faculty(db.Model):
 class Subject(db.Model):
     """Class that represents the Subject table."""
 
-    __tablename__ = 'subjects'
+    __tablename__ = 'subject'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120),unique=True,nullable=False)
@@ -31,7 +31,7 @@ class Subject(db.Model):
 class Course(db.Model):
     """Class that represents the Course table."""
 
-    __tablename__ = 'courses'
+    __tablename__ = 'course'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120),unique=True,nullable=False)

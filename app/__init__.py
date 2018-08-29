@@ -12,7 +12,7 @@ db = SQLAlchemy()
 def create_app(config_name):
     app = Flask(__name__)
     api = Api(app)
-    print(app_config[config_name])
+    #print(app_config[config_name])
     #app.config.from_object(app_config[config_name])
     #app.config.from_pyfile('config.py')
 
@@ -21,7 +21,6 @@ def create_app(config_name):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['DEBUG'] = True 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    print(app.config)
     db.init_app(app)
 
     return app, api
