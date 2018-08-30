@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 
 # local import
 from app.config import app_config
-
+from app.scripts import seedFromCSV 
 # initialize sql-alchemy
 db = SQLAlchemy()
 
@@ -27,7 +27,15 @@ def create_app():
 
     api = Api(app)
 
+    # Create function to seed database
+    # Call using `flask seed_db`
+    @app.cli.command()
+    def seed_db():
+        seedFromCSV()
+
+
     # Create migration commands
+    # Call using `flask db _____`
     migrate = Migrate(app,db)
 
     return app, api
