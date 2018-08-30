@@ -4,11 +4,15 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-# local import
-from app.config import app_config
-from app.scripts import seedFromCSV 
 # initialize sql-alchemy
 db = SQLAlchemy()
+
+# local import
+# Placed after db declaration to prevent circular dependencies.
+# TODO: This is likely a poor practice, and create_app should
+# be moved to a new file entirely 
+from app.config import app_config
+from app.scripts import seedFromCSV 
 
 
 def create_app():
@@ -22,7 +26,6 @@ def create_app():
     app.config.from_object(app_config[os.getenv('APP_SETTINGS')])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    db = SQLAlchemy()
     db.init_app(app)
 
     api = Api(app)
@@ -31,7 +34,7 @@ def create_app():
     # Call using `flask seed_db`
     @app.cli.command()
     def seed_db():
-        seedFromCSV()
+        seedFromCSV(db)
 
 
     # Create migration commands

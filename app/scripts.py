@@ -1,8 +1,8 @@
 import csv
+from models.courseModel import *
 
-CSV_FILE_PATH = './scriptResources/UAlbertaCoursesSingleTable.csv'
-
-def seedFromCSV():
+CSV_FILE_PATH = './app/scriptResources/UAlbertaCoursesSingleTable.csv'
+def seedFromCSV(db):
     """
     Seeds the DB with course information from a csv
     """
@@ -29,4 +29,12 @@ def seedFromCSV():
             #     description=row[5],
             #     subject=subjectObj
             # )
-            pass
+            faculty = getOrCreate(Faculty)
+            print(faculty)
+
+def getOrCreate(Model):
+    object = Model.query.get(1)
+    if object == None:
+        print('CREATE')
+        return #return created
+    return object
