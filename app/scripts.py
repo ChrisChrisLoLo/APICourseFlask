@@ -34,6 +34,11 @@ def seedFromCSV():
             )
 
 def getOrCreate(Model, **kwargs):
+    """
+    Gets an instance based on given parameters.
+    Creates an instance if no such instance exists yet in the db.
+    This is to prevent duplicate entries.
+    """
     instance = Model.query.filter_by(**kwargs).first()
     if instance:
         pass

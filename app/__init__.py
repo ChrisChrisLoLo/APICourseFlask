@@ -34,7 +34,7 @@ def create_app():
     # Call using `flask seed_db`
     @app.cli.command()
     def seed_db():
-        seedFromCSV(db)
+        seedFromCSV()
 
 
     # Create migration commands
