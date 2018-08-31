@@ -3,7 +3,7 @@ from app import db
 class Faculty(db.Model):
     """Class that represents the Faculty table."""
 
-    __tablename__ = 'faculty'
+    __tablename__ = 'faculties'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255),unique=True,nullable=False)
@@ -14,13 +14,13 @@ class Faculty(db.Model):
 class Subject(db.Model):
     """Class that represents the Subject table."""
 
-    __tablename__ = 'subject'
+    __tablename__ = 'subjects'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120),nullable=False)
     subject_code = db.Column(db.String(6),unique=True,nullable=False)
 
-    faculty_id = db.Column(db.Integer, db.ForeignKey('faculty.id'),
+    faculty_id = db.Column(db.Integer, db.ForeignKey('faculties.id'),
         nullable=False)
     faculty = db.relationship('Faculty',
         backref=db.backref('subjects',lazy=True))
@@ -31,7 +31,7 @@ class Subject(db.Model):
 class Course(db.Model):
     """Class that represents the Course table."""
 
-    __tablename__ = 'course'
+    __tablename__ = 'courses'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120),nullable=False)
@@ -39,7 +39,7 @@ class Course(db.Model):
     description = db.Column(db.String(1600))
 
 
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'),
+    subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'),
         nullable=False)
     subject = db.relationship('Subject',
         backref=db.backref('courses',lazy=True))
