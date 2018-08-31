@@ -35,7 +35,7 @@ class Course(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120),unique=True,nullable=False)
-    number_code = db.Column(db.Integer,nullable=False)
+    course_code = db.Column(db.Integer,nullable=False)
     description = db.Column(db.String(1600))
 
 

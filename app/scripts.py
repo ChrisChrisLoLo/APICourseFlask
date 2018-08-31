@@ -1,8 +1,10 @@
 import csv
 from models.courseModel import *
+from app import db
 
 CSV_FILE_PATH = './app/scriptResources/UAlbertaCoursesSingleTable.csv'
-def seedFromCSV(db):
+
+def seedFromCSV():
     """
     Seeds the DB with course information from a csv
     """
@@ -13,28 +15,31 @@ def seedFromCSV(db):
         #Skip first row (the title row)
         next(csvReader)
         for row in csvReader:
-            # #Note: Obj is the resulting entry created as an object
-            # #Created is a boolean.
-            # facultyObj, facultyCreated = Faculty.objects.get_or_create(
-            #     name=row[0],
-            # )
-            # subjectObj, subjectCreated = Subject.objects.get_or_create(
-            #     name=row[1],
-            #     letter_code=row[2],
-            #     faculty=facultyObj
-            # )
-            # courseObj, courseCreated = Course.objects.get_or_create(
-            #     number_code=row[3],
-            #     name=row[4],
-            #     description=row[5],
-            #     subject=subjectObj
-            # )
-            faculty = getOrCreate(Faculty)
-            print(faculty)
+            print(row)
+            facultyObj = getOrCreate(Faculty,
+                name = row[0]
+            )
+            subjectObj = getOrCreate(Subject,
+                name = row[1],
+                subject_code = row[2],
+                faculty_id = facultyObj.id,
+                faculty = facultyObj
+            )
+            courseObj = getOrCreate(Course,
+                course_code = row[3],
+                name = row[4],
+                description = row[5],
+                subject_id = subjectObj.id,
+                subject = subjectObj
+            )
 
-def getOrCreate(Model):
-    object = Model.query.get(1)
-    if object == None:
-        print('CREATE')
-        return #return created
-    return object
+def getOrCreate(Model, **kwargs):
+    instance = Model.query.filter_by(**kwargs).first()
+    if instance:
+        pass
+    else:
+        params = dict((k, v) for k, v in kwargs.items())
+        instance = Model(**params)
+        db.session.add(instance)
+        db.session.commit()
+    return instance
