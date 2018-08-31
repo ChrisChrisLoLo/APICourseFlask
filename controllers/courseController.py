@@ -4,7 +4,10 @@ from flask_restful import Resource
 class Course(Resource):
     def get(self):
         courses = courseModel.Course.query.all()
-        return courses
+        courseNames = []
+        for course in courses:
+            courseNames.append(course.name)
+        return courseNames
     
 
 
