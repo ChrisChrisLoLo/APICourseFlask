@@ -3,6 +3,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
 
 # initialize sql-alchemy
 db = SQLAlchemy()
@@ -27,7 +28,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-
+    ma = Marshmallow(app)
     api = Api(app)
 
     # Create function to seed database

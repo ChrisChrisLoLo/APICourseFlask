@@ -11,6 +11,8 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-restful = "*"
 "psycopg2-binary" = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 [dev-packages]
 
