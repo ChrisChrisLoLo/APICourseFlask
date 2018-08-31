@@ -1,13 +1,12 @@
 import os
 
-from app import create_app
+from app import app, api
 from app.config import app_config
 from controllers import courseController
 
 
 ### INITIALIZATION
 # Initialize the flask app,api,db, and any commands
-app,api = create_app()
 
 ### ROUTING
 # The routing will occur in run.py for now. A new routing file may need to
