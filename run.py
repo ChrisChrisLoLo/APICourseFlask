@@ -2,7 +2,7 @@ import os
 
 from app import app, api
 from app.config import app_config
-from controllers import courseController
+from controllers import courseController, errorController
 
 
 ### INITIALIZATION
@@ -12,7 +12,7 @@ from controllers import courseController
 # The routing will occur in run.py for now. A new routing file may need to
 # be created for cleaner code seperation. 
 courseController.routeCourses(app)
-
+errorController.routeErrors(app)
 
 ### MAIN
 if __name__ == '__main__':
