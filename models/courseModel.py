@@ -12,7 +12,7 @@ class Faculty(db.Model):
         return '<Faculty %r>' % self.name
 
 class FacultySchema(ma.Schema):
-    id = fields.Integer
+    id = fields.Integer()
     name = fields.String(required=True)
 
 class Subject(db.Model):
@@ -36,7 +36,7 @@ class SubjectSchema(ma.Schema):
     id = fields.Integer()
     name = fields.String()
     subject_code = fields.String()
-    faculty_id = fields.String()
+    faculty = fields.Nested(FacultySchema)
 
 class Course(db.Model):
     """Class that represents the Course table."""
@@ -61,4 +61,4 @@ class CourseSchema(ma.Schema):
     name = fields.String()
     course_code = fields.Integer()
     description = fields.String()
-    subject_id = fields.Integer()
+    subject = fields.Nested(SubjectSchema)

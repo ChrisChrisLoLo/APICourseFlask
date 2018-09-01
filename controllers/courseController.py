@@ -8,7 +8,9 @@ courses_schema = CourseSchema(many=True)
 
 class CourseResource(Resource):
     def get(self):
+        #courses = Course.query.get(2)
         courses = Course.query.all()
+        print(courses)
         courses = courses_schema.dump(courses).data
         return {'status': 'success','data': courses},200
 
