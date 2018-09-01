@@ -11,7 +11,7 @@ from controllers import courseController
 ### ROUTING
 # The routing will occur in run.py for now. A new routing file may need to
 # be created for cleaner code seperation. 
-courseController.routeCourses(api)
+courseController.routeCourses(app)
 
 
 ### MAIN

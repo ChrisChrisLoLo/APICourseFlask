@@ -1,19 +1,15 @@
 from models.courseModel import * 
-from flask_restful import Resource
+from flask import jsonify
 
 course_schema = CourseSchema()
 courses_schema = CourseSchema(many=True)
 
-
-
-class CourseResource(Resource):
-    def get(self):
-        #courses = Course.query.get(2)
-        courses = Course.query.all()
+def routeCourses(app):
+    #api.add_resource(CourseResource, '/courses')
+    @app.route('/courses',methods=['GET'])
+    def getCourses():
+        courses = Course.query.limit(5).all()
         print(courses)
         courses = courses_schema.dump(courses).data
-        return {'status': 'success','data': courses},200
-
-
-def routeCourses(api):
-    api.add_resource(CourseResource, '/hi')
+        res = jsonify({'status': 'success','data': courses})
+        return res, 200
