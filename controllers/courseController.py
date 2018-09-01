@@ -1,15 +1,17 @@
-from models import courseModel
+from models.courseModel import * 
 from flask_restful import Resource
 
-class Course(Resource):
+course_schema = CourseSchema()
+courses_schema = CourseSchema(many=True)
+
+
+
+class CourseResource(Resource):
     def get(self):
-        courses = courseModel.Course.query.all()
-        courseNames = []
-        for course in courses:
-            courseNames.append(course.name)
-        return courseNames
-    
+        courses = Course.query.all()
+        courses = courses_schema.dump(courses).data
+        return {'status': 'success','data': courses},200
 
 
 def routeCourses(api):
-    api.add_resource(Course, '/hi')
+    api.add_resource(CourseResource, '/hi')

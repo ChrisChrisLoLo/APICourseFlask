@@ -14,11 +14,11 @@ app.config.from_object(app_config[os.getenv('APP_SETTINGS')])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
+ma = Marshmallow(app)
 # Import scripts after db is defined to prevent circular dependencies.
 from app.scripts import seedFromCSV 
 
-ma = Marshmallow(app)
+
 api = Api(app)
 
 # Create function to seed database

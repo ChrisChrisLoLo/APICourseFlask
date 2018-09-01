@@ -1,5 +1,5 @@
-from app import db
-
+from app import db,ma
+from marshmallow import Schema, fields, pre_load, validate
 class Faculty(db.Model):
     """Class that represents the Faculty table."""
 
@@ -10,6 +10,10 @@ class Faculty(db.Model):
 
     def __repr__(self):
         return '<Faculty %r>' % self.name
+
+class FacultySchema(ma.Schema):
+    id = fields.Integer
+    name = fields.String(required=True)
 
 class Subject(db.Model):
     """Class that represents the Subject table."""
@@ -28,6 +32,12 @@ class Subject(db.Model):
     def __repr__(self):
         return '<Subject %r>' % self.name
 
+class SubjectSchema(ma.Schema):
+    id = fields.Integer()
+    name = fields.String()
+    subject_code = fields.String()
+    faculty_id = fields.String()
+
 class Course(db.Model):
     """Class that represents the Course table."""
 
@@ -38,7 +48,6 @@ class Course(db.Model):
     course_code = db.Column(db.Integer,nullable=False)
     description = db.Column(db.String(1600))
 
-
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'),
         nullable=False)
     subject = db.relationship('Subject',
@@ -46,3 +55,10 @@ class Course(db.Model):
 
     def __repr__(self):
         return '<Course %r>' % self.name
+
+class CourseSchema(ma.Schema):
+    id = fields.Integer()
+    name = fields.String()
+    course_code = fields.Integer()
+    description = fields.String()
+    subject_id = fields.Integer()
